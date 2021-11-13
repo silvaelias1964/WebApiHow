@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiHow", "WebApiHow.csproj", "{1988615D-271D-4BAC-B1A1-3A4622E02286}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1988615D-271D-4BAC-B1A1-3A4622E02286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1988615D-271D-4BAC-B1A1-3A4622E02286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1988615D-271D-4BAC-B1A1-3A4622E02286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1988615D-271D-4BAC-B1A1-3A4622E02286}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F223568-6D95-4C9C-822C-478F6CE267C2}
+	EndGlobalSection
+EndGlobal
