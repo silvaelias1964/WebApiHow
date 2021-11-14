@@ -6,13 +6,14 @@ using WebApiHow.Models;
 
 namespace WebApiHow.Services
 {
+    /// <summary>
+    ///  Servicio para Solicitudes de ingreso
+    /// </summary>
     public class IngresoService : IIngresoService
     {
-        /// <summary>
-        ///  Servicio para Solicitudes de ingreso
-        /// </summary>
 
-        private readonly ApplicationDBContext _context;
+        // Atributos
+        private readonly ApplicationDBContext _context;  // Conexión a BD
 
         // Constructor contexto de datos
         public IngresoService(ApplicationDBContext context)
@@ -21,10 +22,10 @@ namespace WebApiHow.Services
         }
 
         /// <summary>
-        /// Add Ingresos
+        /// Agregar Ingresos
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>1-Casa no encontrada 3-Ok 9-Error</returns>
+        /// <param name="entity">modelo-entidad</param>
+        /// <returns>Código de estado: 1-Casa no encontrada 3-Ok 9-Error</returns>
         public int AddIngresos(Ingresos entity)
         {
             var nombreCasa = _context.Casas.FirstOrDefault(i => i.Id.Equals(entity.CasasId));
@@ -47,11 +48,11 @@ namespace WebApiHow.Services
 
 
         /// <summary>
-        /// Edit Ingreso 
+        /// Editar Ingresos 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="entity"></param>
-        /// <returns>1-Casa no encontrada 2-solicitud no encontrada 3-Ok 9-Error </returns>
+        /// <param name="id">Id de Ingresos</param>
+        /// <param name="entity">Modelo-entidad</param>
+        /// <returns>Código de estado: 1-Casa no encontrada 2-solicitud no encontrada 3-Ok 9-Error </returns>
         public int EditIngresos(int id, Ingresos entity) 
         {
             if (id != entity.Id)
@@ -88,6 +89,11 @@ namespace WebApiHow.Services
         }
 
 
+        /// <summary>
+        /// Eliminar ingreso
+        /// </summary>
+        /// <param name="id">Id de Ingreso</param>
+        /// <returns>Código de estado: 2-solicitud no encontrada 3-Ok 9-Error </returns>
         public int DeleteIngreso(int id) 
         {
             var ingresos = _context.Ingresos.Find(id);
@@ -116,8 +122,8 @@ namespace WebApiHow.Services
         /// <summary>
         /// Chequea existencia de solicitud
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id de Ingreso</param>
+        /// <returns>Objeto si la data es encontrada, de lo contrario devuelve null</returns>
         private bool IngresosExists(int id)
         {
             return _context.Ingresos.Any(e => e.Id == id);

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WebApiHow.Models
+﻿namespace WebApiHow.Models
 {
+    /// <summary>
+    /// Ingresos (Data Transfer Object) se usa para desplegar los datos
+    /// </summary>
     public class IngresosDTO
     {
 

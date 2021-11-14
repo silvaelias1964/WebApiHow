@@ -1,17 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using WebApiHow.Data;
 using WebApiHow.Services;
 
@@ -39,6 +34,25 @@ namespace WebApiHow
 
             services.AddTransient<IngresoService>();
 
+            // Generador Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                { Title = "Api REST Hogwarts",Description="Para ser consumida por Hogwarts", Version = "v1" });
+                // Directorio actual
+                var basePath = AppContext.BaseDirectory;
+                //Nombre de la dll (usando reflexion)
+                var assemblyName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+                //Al nombre del assembly se le agrega extension xml
+                var fileName = Path.GetFileName(assemblyName + ".xml");
+                // Agregar Path
+                var xmlPath = Path.Combine(basePath, fileName);
+                c.IncludeXmlComments(xmlPath);
+                // Agrupar y ordenar por metodos http.
+                c.TagActionsBy(p => p.HttpMethod);
+                
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +62,14 @@ namespace WebApiHow
             {
                 app.UseDeveloperExceptionPage();
             }
+            // Habilitar Swagger
+            app.UseSwagger();
+            // Ruta para generar la configuración de Swagger
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api REST Hogwarts");
+            });
+
 
             app.UseHttpsRedirection();
 

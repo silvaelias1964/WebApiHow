@@ -12,25 +12,25 @@ namespace WebApiHow.Services
     public interface IIngresoService
     {
         /// <summary>
-        /// Add Ingresos
+        /// Agregar Ingresos
         /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+        /// <param name="entity">modelo-entidad</param>
+        /// <returns>Código de estado: 1-Casa no encontrada 3-Ok 9-Error</returns>
         int AddIngresos(Ingresos entity);
 
         /// <summary>
-        /// Edit Ingresos
+        /// Editar Ingresos 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+        /// <param name="id">Id de Ingresos</param>
+        /// <param name="entity">Modelo-entidad</param>
+        /// <returns>Código de estado: 1-Casa no encontrada 2-solicitud no encontrada 3-Ok 9-Error </returns>
         int EditIngresos(int id, Ingresos entity);
 
         /// <summary>
-        /// Delete ingresos
+        /// Eliminar ingreso
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id de Ingreso</param>
+        /// <returns>Código de estado: 2-solicitud no encontrada 3-Ok 9-Error </returns>
         int DeleteIngreso(int id);
     }
 }

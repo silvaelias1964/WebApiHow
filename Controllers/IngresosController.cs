@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApiHow.Data;
 using WebApiHow.Models;
 using WebApiHow.Services;
@@ -19,9 +18,13 @@ namespace WebApiHow.Controllers
     [ApiController]
     public class IngresosController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
+        #region Constructor
+        /// <summary>
+        /// Attributos
+        /// </summary>
+        private readonly ApplicationDBContext _context; //Conexion a BD
 
-        private readonly IIngresoService _ingresoService;
+        private readonly IIngresoService _ingresoService;  //Servicio 
 
         // Constructor contexto de datos
         public IngresosController(ApplicationDBContext context, IngresoService ingresoService)
@@ -29,12 +32,14 @@ namespace WebApiHow.Controllers
             _context = context;
             _ingresoService = ingresoService;
         }
+        #endregion
 
-
+        #region Metodos Request
         /// <summary>
-        /// GET: api/Ingresos
+        /// Lista todos las solicitudes de ingresos    
         /// </summary>
-        /// <returns>list</returns>
+        /// <returns>Datos básicos de ingresos de cada persona</returns>
+        /// GET: api/Ingresos
         [HttpGet]
         public IActionResult GetIngresos()   
         {
@@ -71,12 +76,13 @@ namespace WebApiHow.Controllers
 
 
         /// <summary>
-        /// GET: api/Ingresos/id
+        /// Lista todos las solicitudes de ingresos    
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>list</returns>
+        /// <param name="id">Código Id de la persona</param>
+        /// <returns>Datos básicos de ingresos de una persona</returns>
+        /// GET: api/Ingresos/id
         [HttpGet("{id}")]
-        public IActionResult GetIngresos(int id)
+        public IActionResult GetIngresos([Required(ErrorMessage = "Debes ingresar el Id de la solicitud de ingreso")] int id)
         {
 
             try
@@ -113,13 +119,52 @@ namespace WebApiHow.Controllers
         }
 
         /// <summary>
-        /// PUT: api/Ingresos/id        
+        /// Inserta una solicitud de ingreso por persona 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="ingresos"></param>
-        /// <returns></returns>
+        /// <param name="ingresos">Campos de la solicitud de ingreso: 
+        /// Nombre: alfanumérico de 20 caracteres máximo.
+        /// Apellido: alfanumérico de 20 caracteres máximo.
+        /// Identificación: solo números son permitidos, 10 dígitos máximo.
+        /// Edad: solo números, 2 dígitos máximo.
+        /// CasasId: solo número, en este caso para este proyecto solo se contemplan 4 casas, del 1 al 4  </param>
+        /// <returns>Datos de la solicitud agregados</returns>
+        /// POST: api/Ingresos         
+        [HttpPost]
+        public IActionResult PostIngresos(Ingresos ingresos)
+        {
+
+            int estado = _ingresoService.AddIngresos(ingresos);
+            if (estado == 1)
+            {
+                return Ok(new { statusCode = "200", result = "La Casa no está registrada.." });
+            }
+            else if (estado == 9)
+            {
+                return BadRequest(new { statusCode = "400", result = "Error de datos.." });
+            }
+
+            return CreatedAtAction("PostIngresos", new { id = ingresos.Id }, ingresos);
+        }
+
+
+        /// <summary>
+        /// Editar una solicitud de ingreso
+        /// </summary>
+        /// <param name="id">Código Id de la solicitud de ingreso</param>
+        /// <param name="ingresos">Campo con su contenido a modificar</param>
+        /// <returns>Mensaje indicando que la solicitud fué modificados</returns>
+        /// <remarks>
+        ///      {
+        ///        "nombre": "string",
+        ///        "apellido": "string",
+        ///        "identificacion": "string",
+        ///        "edad": 99,
+        ///        "casasId": 0
+        ///      } 
+        /// </remarks>
+        /// PUT: api/Ingresos/id        
         [HttpPut("{id}")]
-        public IActionResult PutIngresos(int id, Ingresos ingresos)
+        public IActionResult PutIngresos([Required(ErrorMessage = "Debes ingresar el Id de la solicitud de ingreso")] int id, Ingresos ingresos)
         {
 
             int estado = _ingresoService.EditIngresos(id,ingresos);
@@ -139,36 +184,16 @@ namespace WebApiHow.Controllers
             return Ok(new { statusCode = "200", result = "Solicitud de Ingreso modificado exitosamente" });
         }
 
-        
+
+
         /// <summary>
-        /// POST: api/Ingresos         
+        /// Borrado de una solicitud de ingreso
         /// </summary>
-        /// <param name="ingresos"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult PostIngresos(Ingresos ingresos)
-        {
-
-            int estado = _ingresoService.AddIngresos(ingresos);
-            if (estado == 1)
-            {
-                return Ok(new { statusCode = "200", result = "La Casa no está registrada.." });
-            }
-            else if (estado == 9)
-            {
-                return BadRequest(new { statusCode = "400", result = "Error de datos.." });
-            }
-
-            return CreatedAtAction("PostIngresos", new { id = ingresos.Id }, ingresos);
-        }
-
-        /// <summary>
+        /// <param name="id">Código Id de la solicitud de ingreso</param>
+        /// <returns>Mensaje indicando borrado exitoso</returns>
         /// DELETE: api/Ingresos/id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult DeleteIngresos(int id)
+        public IActionResult DeleteIngresos([Required(ErrorMessage = "Debes ingresar el Id de la solicitud de ingreso")] int id)
         {
 
             int estado = _ingresoService.DeleteIngreso(id);
@@ -184,5 +209,6 @@ namespace WebApiHow.Controllers
             return Ok(new { statusCode = "200", result = "Solicitud de Ingreso eliminada exitosamente" });
         }
 
+        #endregion
     }
 }

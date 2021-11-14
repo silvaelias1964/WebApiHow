@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApiHow.Models
 {
@@ -11,11 +8,18 @@ namespace WebApiHow.Models
     /// </summary>
     public class Casas
     {
+        /// <summary>
+        /// Id de la Casa
+        /// </summary>
+        /// <value>Autoincrementable</value>
         [Key]
         public int Id { get; set; }        
 
+        /// <summary>
+        /// Nombre de la casa
+        /// </summary>
         public string NombreCasa { get; set; }
-
+        
         public virtual ICollection<Ingresos> Ingresos { get; set; }
 
     }
