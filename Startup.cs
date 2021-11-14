@@ -47,10 +47,10 @@ namespace WebApiHow
                 var fileName = Path.GetFileName(assemblyName + ".xml");
                 // Agregar Path
                 var xmlPath = Path.Combine(basePath, fileName);
-                c.IncludeXmlComments(xmlPath);
-                // Agrupar y ordenar por metodos http.
-                c.TagActionsBy(p => p.HttpMethod);
-                
+                c.IncludeXmlComments(xmlPath);                
+                // Agrupar y ordenar por metodos http (indica obsoleto pero funciona).
+                //c.TagActionsBy(p => p.HttpMethod);                
+
             });
 
         }

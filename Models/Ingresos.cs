@@ -5,7 +5,7 @@ namespace WebApiHow.Models
 {
 
 	/// <summary>
-	/// Clase Entidad Ingresos
+	/// Solicitudes de Ingresos
 	/// </summary>
 	public class Ingresos
 	{

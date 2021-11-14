@@ -128,6 +128,19 @@ namespace WebApiHow.Controllers
         /// Edad: solo números, 2 dígitos máximo.
         /// CasasId: solo número, en este caso para este proyecto solo se contemplan 4 casas, del 1 al 4  </param>
         /// <returns>Datos de la solicitud agregados</returns>
+        /// <remarks>        
+        /// Sample request:
+        ///
+        ///     PUT /Ingresos
+        ///      {
+        ///        "id" : 0,
+        ///        "nombre": "string",
+        ///        "apellido": "string",
+        ///        "identificacion": "string",
+        ///        "edad": 99,
+        ///        "casasId": 0
+        ///      } 
+        /// </remarks>
         /// POST: api/Ingresos         
         [HttpPost]
         public IActionResult PostIngresos(Ingresos ingresos)
@@ -153,8 +166,12 @@ namespace WebApiHow.Controllers
         /// <param name="id">Código Id de la solicitud de ingreso</param>
         /// <param name="ingresos">Campo con su contenido a modificar</param>
         /// <returns>Mensaje indicando que la solicitud fué modificados</returns>
-        /// <remarks>
+        /// <remarks>        
+        /// Sample request:
+        ///
+        ///     PUT /Ingresos
         ///      {
+        ///        "id": 0,
         ///        "nombre": "string",
         ///        "apellido": "string",
         ///        "identificacion": "string",

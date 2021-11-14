@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace WebApiHow.Models
 {
     /// <summary>
-    /// Clase Entidad Casas
+    /// Casas
     /// </summary>
     public class Casas
     {
