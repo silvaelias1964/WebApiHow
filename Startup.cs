@@ -34,6 +34,8 @@ namespace WebApiHow
 
             services.AddTransient<IngresoService>();
 
+            services.AddRouting(routing => routing.LowercaseUrls = true);  // Coloca todas las rutas a minusculas como estandar
+
             // Generador Swagger
             services.AddSwaggerGen(c =>
             {
